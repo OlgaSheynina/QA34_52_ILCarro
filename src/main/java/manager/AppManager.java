@@ -8,9 +8,11 @@ import org.testng.annotations.BeforeMethod;
 public class AppManager {
 
     private WebDriver driver;
+
     public WebDriver getDriver() {
         return driver;
     }
+
     @BeforeMethod
     public void setup() {
         driver = new ChromeDriver();
@@ -19,7 +21,7 @@ public class AppManager {
 
     @AfterMethod(enabled = false)
     public void tearDown() {
-        if(driver != null) {
+        if (driver != null) {
             driver.quit();
         }
     }
