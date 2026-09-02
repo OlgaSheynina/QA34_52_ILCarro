@@ -37,7 +37,7 @@ public class LoginTests extends AppManager {
     @Test
     public void loginNegativeWrongEmailTest() {
         User user = User.builder()
-                .username("dfffasv55@qwer.com")
+                .username(getProperty("base.properties","wrongEmail"))
                 .password(getProperty("base.properties","password"))
                 .build();
         loginPage.typeLoginForm(user);
@@ -50,7 +50,7 @@ public class LoginTests extends AppManager {
     public void loginNegativeWrongPasswordTest() {
         User user = User.builder()
                 .username(getProperty("base.properties","email"))
-                .password("Slgacv345!")
+                .password(getProperty("base.properties","wrongPassword"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
@@ -83,6 +83,32 @@ public class LoginTests extends AppManager {
         softAssert.assertTrue(loginPage.isTextInErrorPresent("Password is required"),
                 "validate message: Password is required");
         softAssert.assertAll();
+    }
+
+    @Test
+    public void loginNegativeEmptyEmailTest() {
+        User user = User.builder()
+                .username("")
+                .password(getProperty("base.properties","password"))
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnYalla();
+
+        Assert.assertTrue(loginPage.isEmailIsRequired());
+        System.out.println("Email is required");
+    }
+
+    @Test
+    public void loginNegativeEmptyPasswordTest() {
+        User user = User.builder()
+                .username(getProperty("base.properties","email"))
+                .password("")
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickBtnYalla();
+
+        Assert.assertTrue(loginPage.isPasswordIsRequired());
+        System.out.println("Password is required");
     }
 }
 
