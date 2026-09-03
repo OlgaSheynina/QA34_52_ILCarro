@@ -11,11 +11,11 @@ public class PropertiesReader {
             (String fileName, String key) {
         Properties properties = new Properties();
 
-        try(FileInputStream fileInputStream = new FileInputStream
-                ("src/test/properties" + File.separator + fileName)){
+        try (FileInputStream fileInputStream = new FileInputStream
+                ("src/test/properties" + File.separator + fileName)) {
             properties.load(fileInputStream);
             return properties.getProperty(key);
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("created exception");
             e.printStackTrace();
             return null;

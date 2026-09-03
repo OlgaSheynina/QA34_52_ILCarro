@@ -8,7 +8,7 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import static utils.PropertiesReader.*;
 
-public class HomePage extends BasePage{
+public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         setDriver(driver);
@@ -21,9 +21,18 @@ public class HomePage extends BasePage{
     @FindBy(xpath = "//a[@href='/login?url=%2Fsearch']")
     WebElement btnLogin;
 
+    @FindBy(xpath = "//a[text()=' Sign up ']")
+    WebElement btnSignUp;
+
+
+    public void clickBtnSignUp() {
+        btnSignUp.click();
+    }
+
     public void clickBtnLogin() {
         btnLogin.click();
     }
+
 }
 
 

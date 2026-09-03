@@ -25,8 +25,8 @@ public class LoginTests extends AppManager {
     @Test
     public void loginPositiveTest() {
         User user = User.builder()
-                .username(getProperty("base.properties","email"))
-                .password(getProperty("base.properties","password"))
+                .username(getProperty("base.properties", "email"))
+                .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
@@ -37,8 +37,8 @@ public class LoginTests extends AppManager {
     @Test
     public void loginNegativeWrongEmailTest() {
         User user = User.builder()
-                .username(getProperty("base.properties","wrongEmail"))
-                .password(getProperty("base.properties","password"))
+                .username(getProperty("base.properties", "wrongEmail"))
+                .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
@@ -49,8 +49,8 @@ public class LoginTests extends AppManager {
     @Test
     public void loginNegativeWrongPasswordTest() {
         User user = User.builder()
-                .username(getProperty("base.properties","email"))
-                .password(getProperty("base.properties","wrongPassword"))
+                .username(getProperty("base.properties", "email"))
+                .password(getProperty("base.properties", "wrongPassword"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
@@ -59,14 +59,14 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void  loginNegativeEmptyAllFieldsWOClickInFieldsTest() {
+    public void loginNegativeEmptyAllFieldsWOClickInFieldsTest() {
         loginPage.clickBtnYalla();
 
         Assert.assertFalse(loginPage.isBtnYallaEnabled());
     }
 
     @Test
-    public void  loginNegativeEmptyAllFieldsWithClickInFieldsTest() {
+    public void loginNegativeEmptyAllFieldsWithClickInFieldsTest() {
         User user = User.builder()
                 .username("")
                 .password("")
@@ -86,29 +86,35 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeEmptyEmailTest() {
+    public void loginNegativeEmptyFieldEmailTest() {
         User user = User.builder()
                 .username("")
-                .password(getProperty("base.properties","password"))
+                .password(getProperty("base.properties", "password"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
 
-        Assert.assertTrue(loginPage.isEmailIsRequired());
-        System.out.println("Email is required");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Email is required"),
+                "validate message: Email is required");
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
+                "validate isBtnYallaEnabled");
+        softAssert.assertAll();
     }
 
     @Test
-    public void loginNegativeEmptyPasswordTest() {
+    public void loginNegativeEmptyFieldPasswordTest() {
         User user = User.builder()
-                .username(getProperty("base.properties","email"))
+                .username(getProperty("base.properties", "email"))
                 .password("")
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
 
-        Assert.assertTrue(loginPage.isPasswordIsRequired());
-        System.out.println("Password is required");
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("Password is required"),
+                "validate message: Password is required");
+        softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
+                "validate isBtnYallaEnabled");
+        softAssert.assertAll();
     }
 }
 
