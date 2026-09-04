@@ -45,4 +45,15 @@ public class RegistrationTests extends AppManager {
         Assert.assertTrue(new PopUpPage(getDriver())
                 .isTextInPopUpMessagePresent("You are logged in success"));
     }
+
+    @Test
+    public void RegistrationPositiveWithActionsTest() {
+        User user = positiveUser();
+        registrationPage.typeRegistrationForm(user);
+        registrationPage.clickCheckBoxWithActions();
+        registrationPage.clickBtnYalla();
+
+        Assert.assertTrue(new PopUpPage(getDriver())
+                .isTextInPopUpMessagePresent("You are logged in success"));
+    }
 }
