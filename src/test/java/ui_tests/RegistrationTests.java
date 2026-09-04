@@ -46,6 +46,7 @@ public class RegistrationTests extends AppManager {
                 .isTextInPopUpMessagePresent("You are logged in success"));
     }
 
+
     @Test
     public void RegistrationPositiveWithActionsTest() {
         User user = positiveUser();
