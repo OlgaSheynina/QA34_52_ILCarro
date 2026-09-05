@@ -67,9 +67,8 @@ public class RegistrationPage extends BasePage {
         int y = checkBoxLabel.getSize().getHeight();
         System.out.println(x + "X" + y);
 
-
         Actions actions = new Actions(driver);
-        actions.moveToElement(checkBoxLabel, x/10, y/4)
+        actions.moveToElement(checkBoxLabel, x/10*3, y/2)
                 .click().perform();
     }
 }

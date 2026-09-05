@@ -20,6 +20,7 @@ public class RegistrationTests extends AppManager {
 
     @BeforeMethod
     public void goToRegistrationPage() {
+        logger.info("Start registration test");
         new HomePage(getDriver()).clickBtnSignUp();
         registrationPage = new RegistrationPage(getDriver());
     }
@@ -45,7 +46,6 @@ public class RegistrationTests extends AppManager {
         Assert.assertTrue(new PopUpPage(getDriver())
                 .isTextInPopUpMessagePresent("You are logged in success"));
     }
-
 
     @Test
     public void RegistrationPositiveWithActionsTest() {
