@@ -2,6 +2,7 @@ package manager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
@@ -22,7 +23,10 @@ public class AppManager {
 
     @BeforeMethod
     public void setup(Method method) {
-        driver = new ChromeDriver();
+
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--lang=en");
+        driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         logger.info("Start testing with method -->" + method.getName());
     }
