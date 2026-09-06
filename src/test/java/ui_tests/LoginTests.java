@@ -4,12 +4,17 @@ import dto.User;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyzer;
+import utils.TestNGListener;
 
 import static utils.PropertiesReader.*;
+
+@Listeners(TestNGListener.class)
 
 public class LoginTests extends AppManager {
 
@@ -85,7 +90,7 @@ public class LoginTests extends AppManager {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginNegativeEmptyFieldEmailTest() {
         User user = User.builder()
                 .username("")
@@ -94,7 +99,8 @@ public class LoginTests extends AppManager {
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();
 
-        softAssert.assertTrue(loginPage.isTextInErrorPresent("Email is required"),
+        softAssert.assertTrue(loginPage.isTextInErrorPresent("" +
+                        "Email is required"),
                 "validate message: Email is required");
         softAssert.assertFalse(loginPage.isBtnYallaEnabled(),
                 "validate isBtnYallaEnabled");
