@@ -75,7 +75,12 @@ public class LetTheCarWorkPage extends BasePage {
 
     public void chooseFuel(Fuel fuel) {
         inputFuel.click();
-        driver.findElement(By.xpath(fuel.getLocator())).click();
+        if(fuel != null) {
+            driver.findElement(By.xpath(fuel.getLocator())).click();
+        }else {
+            pause(1000);
+            inputFuel.click();
+        }
     }
 
     public void downloadImage(String fileName) {

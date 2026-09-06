@@ -71,6 +71,10 @@ public class RegistrationPage extends BasePage {
         actions.moveToElement(checkBoxLabel, x/10*3, y/2)
                 .click().perform();
     }
+
+    public boolean isBtnYallaEnabled() {
+        return btnYalla.isEnabled();
+    }
 }
 
 

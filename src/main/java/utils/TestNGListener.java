@@ -1,5 +1,8 @@
 package utils;
 
+import manager.AppManager;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
@@ -9,7 +12,10 @@ import org.testng.ITestResult;
 
 public class TestNGListener implements ITestListener {
 
-    Logger logger = LoggerFactory.getLogger(TestNGListener.class);
+    Logger logger = LoggerFactory
+            .getLogger(TestNGListener.class);
+
+    private WebDriver driver;
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -28,6 +34,9 @@ public class TestNGListener implements ITestListener {
         ITestListener.super.onTestFailure(result);
         logger.error("test failed --> " + result.getName()
                 + " status --> " + result.getStatus());
+        this.driver = ((AppManager) result
+                .getInstance()).getDriver();
+        TakeScreenShot.takeScreenShot((TakesScreenshot) driver);
     }
 
     @Override
@@ -41,6 +50,9 @@ public class TestNGListener implements ITestListener {
         ITestListener.super.onTestFailedWithTimeout(result);
         logger.error("test failed with timeout--> "
                 + result.getName());
+        this.driver = ((AppManager) result
+                .getInstance()).getDriver();
+        TakeScreenShot.takeScreenShot((TakesScreenshot) driver);
     }
 
     @Override
