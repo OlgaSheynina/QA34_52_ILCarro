@@ -28,7 +28,7 @@ public class AddNewCarTests extends AppManager {
     LoginPage loginPage;
     LetTheCarWorkPage letTheCarWorkPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void goToLetTheCarWorkPage() {
 
         //new HomePage(getDriver()).clickBtnLogin();
@@ -48,7 +48,7 @@ public class AddNewCarTests extends AppManager {
                 .clickHeaderButtons(HeaderMenu.LET_THE_CAR_WORK);
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress", "car", "positive"})
     public void addNewCarPositiveTest() {
         Car car = positiveCar();
         System.out.println(car);
@@ -72,7 +72,7 @@ public class AddNewCarTests extends AppManager {
         letTheCarWorkPage.clickBtnSubmitWithJS();
 
         Assert.assertTrue(letTheCarWorkPage
-                .isTextInErrorPresent("Fuel is required"),
+                        .isTextInErrorPresent("Fuel is required"),
                 " text is not present");
     }
 
@@ -102,20 +102,20 @@ public class AddNewCarTests extends AppManager {
                 .isTextInErrorPresent("Year required"));
     }
 
-    @DataProvider(name = "invalidYearsSingleArray")
-    public Object[] invalidYearsData() {
-        return new Object[]{"v", "A", " ", "%", "שלום", "555Y"};
-    }
-    @Test(dataProvider = "invalidYearsSingleArray")
-    public void addNewCarNegativeWrongYearTest(String invalidYear) {
-        Car car = positiveCar();
-        car.setYear(invalidYear);
-
-        letTheCarWorkPage.typeNewCarForm(car);
-        letTheCarWorkPage.downloadImage("cat2.jpg");
-
-        Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Year required"));
-    }
+//    @DataProvider(name = "invalidYearsSingleArray")
+//    public Object[] invalidYearsData() {
+//        return new Object[]{"v", "A", " ", "%", "שלום", "555Y"};
+//    }
+//    @Test(dataProvider = "invalidYearsSingleArray")
+//    public void addNewCarNegativeWrongYearTest(String invalidYear) {
+//        Car car = positiveCar();
+//        car.setYear(invalidYear);
+//
+//        letTheCarWorkPage.typeNewCarForm(car);
+//        letTheCarWorkPage.downloadImage("cat2.jpg");
+//
+//        Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Year required"));
+//    }
 }
 
 

@@ -46,6 +46,20 @@ public class SearchCarTests extends AppManager {
         Assert.assertTrue(homePage.isUrlContainsText("results"));
     }
 
+//    @Test
+//    public void searchCarWithCalendarNegativeTest() {
+//        String city = "Haifa";
+//        LocalDate startDate = LocalDate.now()
+//                .plusDays(2);
+//        LocalDate endDate = LocalDate.now()
+//                .plusDays(2);
+//
+//        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+//        homePage.clickBtnSubmitWithJS();
+//        Assert.assertTrue(homePage.isTextInErrorPresent
+//                ("You can't book car for less than a day"));
+//    }
+
     @Test
     public void searchCarNegativeSameStartAndEndDatesTest() {
         String city = "Haifa";

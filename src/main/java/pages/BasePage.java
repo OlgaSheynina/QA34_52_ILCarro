@@ -40,6 +40,16 @@ public class BasePage {
         return element.isDisplayed();
     }
 
+    public boolean isUrlContainsText(String text) {
+        try {
+            return new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.urlContains(text));
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean isTextInElementPresent
             (WebElement element, String text) {
         try {
@@ -99,16 +109,6 @@ public class BasePage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public boolean isUrlContainsText(String text) {
-        try {
-            return new WebDriverWait(driver, Duration.ofSeconds(5))
-                    .until(ExpectedConditions.urlContains(text));
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 }
 

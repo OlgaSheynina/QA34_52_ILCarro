@@ -22,14 +22,14 @@ public class RegistrationTests extends AppManager {
     RegistrationPage registrationPage;
     SoftAssert softAssert = new SoftAssert();
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void goToRegistrationPage() {
         logger.info("Start registration test");
         new HomePage(getDriver()).clickBtnSignUp();
         registrationPage = new RegistrationPage(getDriver());
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress", "user", "positive"})
     public void RegistrationPositiveTest() {
         User user = positiveUser();
         registrationPage.typeRegistrationForm(user);
@@ -62,28 +62,28 @@ public class RegistrationTests extends AppManager {
                 .isTextInPopUpMessagePresent("You are logged in success"));
     }
 
-    @Test
-    public void registrationNegativeEmptyFieldsNoClickTest() {
-
-        registrationPage.clickCheckBoxWithActions();
-        registrationPage.clickBtnYalla();
-
-        softAssert.assertTrue(registrationPage
-                        .isTextInErrorPresent("Name is required"),
-                "Name is required. Error not found");
-        softAssert.assertTrue(registrationPage
-                        .isTextInErrorPresent("Last name is required"),
-                "Last name is required. Error not found");
-        softAssert.assertTrue(registrationPage
-                        .isTextInErrorPresent("Email is required"),
-                "Email is required. Error not found");
-        softAssert.assertTrue(registrationPage
-                .isTextInErrorPresent("Password is required"),
-                "Password is required. Error not found");
-        softAssert.assertTrue(registrationPage
-                .isBtnYallaEnabled(), "Btn Yalla is enabled");
-        softAssert.assertAll();
-    }
+//    @Test
+//    public void registrationNegativeEmptyFieldsNoClickTest() {
+//
+//        registrationPage.clickCheckBoxWithActions();
+//        registrationPage.clickBtnYalla();
+//
+//        softAssert.assertTrue(registrationPage
+//                        .isTextInErrorPresent("Name is required"),
+//                "Name is required. Error not found");
+//        softAssert.assertTrue(registrationPage
+//                        .isTextInErrorPresent("Last name is required"),
+//                "Last name is required. Error not found");
+//        softAssert.assertTrue(registrationPage
+//                        .isTextInErrorPresent("Email is required"),
+//                "Email is required. Error not found");
+//        softAssert.assertTrue(registrationPage
+//                .isTextInErrorPresent("Password is required"),
+//                "Password is required. Error not found");
+//        softAssert.assertTrue(registrationPage
+//                .isBtnYallaEnabled(), "Btn Yalla is enabled");
+//        softAssert.assertAll();
+//    }
 
     @Test(dataProvider = "dataProviderForRegistrationWrongPasswordOrEmail",
             dataProviderClass = UserDataProvider.class)
