@@ -35,7 +35,6 @@ public class RegistrationTests extends AppManager {
         registrationPage.typeRegistrationForm(user);
         registrationPage.clickCheckBoxIAgree();
         registrationPage.clickBtnYalla();
-
         Assert.assertTrue(new PopUpPage(getDriver())
                 .isTextInPopUpMessagePresent("You are logged in success"));
     }
