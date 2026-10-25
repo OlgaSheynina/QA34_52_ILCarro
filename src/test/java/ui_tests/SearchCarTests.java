@@ -15,12 +15,12 @@ public class SearchCarTests extends AppManager {
     HomePage homePage;
     SoftAssert softAssert = new SoftAssert();
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void openHomePage() {
         homePage = new HomePage(getDriver());
     }
 
-    @Test
+    @Test(groups = "smoke")
     public void searchCarPositiveTest() {
         String city = "Haifa";
         LocalDate startDate = LocalDate.now()
@@ -46,26 +46,54 @@ public class SearchCarTests extends AppManager {
         Assert.assertTrue(homePage.isUrlContainsText("results"));
     }
 
-//    @Test
-//    public void searchCarWithCalendarNegativeTest() {
-//        String city = "Haifa";
-//        LocalDate startDate = LocalDate.now()
-//                .plusDays(2);
-//        LocalDate endDate = LocalDate.now()
-//                .plusDays(2);
-//
-//        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
-//        homePage.clickBtnSubmitWithJS();
+    @Test
+    public void searchCarWithCalendarSameDatesNegativeTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now().plusDays(3);
+        LocalDate endDate = LocalDate.now().plusDays(3);
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        Assert.assertTrue(homePage.isTextInErrorPresent
+                ("You can't book car for less than a day"));
+    }
+
+    @Test
+    public void searchCarWithCalendarMoreThatOneYearNegativeTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now().plusDays(3);
+        LocalDate endDate = LocalDate.now().plusYears(1).plusDays(1);
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        homePage.pressEscape();
+        Assert.assertTrue(homePage.isTextInErrorPresent
+                ("Dates are required"));
+    }
+
+    @Test
+    public void searchCarWithCalendarStartDateLessTodayNegativeTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now().minusDays(2);
+        LocalDate endDate = LocalDate.now().plusDays(3);
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        homePage.pressEscape();
 //        Assert.assertTrue(homePage.isTextInErrorPresent
-//                ("You can't book car for less than a day"));
-//    }
+//                ("Dates are required"));
+    }
+
+    @Test
+    public void searchCarWithCalendarNegativeTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+        homePage.typeSearchForm(city, startDate, endDate);
+        homePage.clickBtnSubmitWithJS();
+        Assert.assertTrue(homePage.isTextInErrorPresent
+                ("You can't book car for less than a day"));
+    }
 
     @Test
     public void searchCarNegativeSameStartAndEndDatesTest() {
         String city = "Haifa";
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = LocalDate.now();
-
         homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnSubmitWithJS();
         Assert.assertTrue(homePage.isTextInErrorPresent
@@ -78,7 +106,6 @@ public class SearchCarTests extends AppManager {
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = LocalDate.now()
                 .plusYears(1).plusDays(1);
-
         homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnSubmitWithJS();
         Assert.assertTrue(homePage.isTextInErrorPresent
@@ -92,7 +119,6 @@ public class SearchCarTests extends AppManager {
                 .plusDays(10);
         LocalDate endDate = LocalDate.now()
                 .plusDays(7);
-
         homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnSubmitWithJS();
         softAssert.assertTrue(homePage.isTextInErrorPresent

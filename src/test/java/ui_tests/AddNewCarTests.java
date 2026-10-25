@@ -52,11 +52,9 @@ public class AddNewCarTests extends AppManager {
     public void addNewCarPositiveTest() {
         Car car = positiveCar();
         System.out.println(car);
-
         letTheCarWorkPage.typeNewCarForm(car);
         letTheCarWorkPage.downloadImage("cat2.jpg");
         letTheCarWorkPage.clickBtnSubmitWithJS();
-
         Assert.assertTrue(new PopUpPage(getDriver())
                 .isTextInPopUpMessagePresent
                         ("{\"city\":\"must not be blank\"}"));

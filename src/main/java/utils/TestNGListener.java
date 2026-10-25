@@ -11,10 +11,8 @@ import org.testng.ITestResult;
 
 
 public class TestNGListener implements ITestListener {
-
     Logger logger = LoggerFactory
             .getLogger(TestNGListener.class);
-
     private WebDriver driver;
 
     @Override
